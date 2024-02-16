@@ -1,2 +1,0 @@
-"""Functions for processing selling
-"""
