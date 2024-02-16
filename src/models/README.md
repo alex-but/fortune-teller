@@ -121,7 +121,9 @@ This repository contains data models for a financial simulation, including defin
 - Attributes:
   - `name`: Name of the character.
   - `assets`: List of Asset objects owned by the character.
+  - `initial_capital_g_Au`: initial capital to start with
   - `capital_g_Au`: Timeseries representing the capital (wealth) of the character over time in grams of gold.
+  - `wealth`: computed total wealth over time in a given currency
 
 ## Usage
 

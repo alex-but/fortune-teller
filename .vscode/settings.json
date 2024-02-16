@@ -7,5 +7,6 @@
   "editor.defaultFoldingRangeProvider": "njpwerner.autodocstring",
   "python.terminal.activateEnvInCurrentTerminal": true,
   "python.testing.pytestEnabled": true,
-  "vsintellicode.features.python.deepLearning": "enabled"
+  "vsintellicode.features.python.deepLearning": "enabled",
+  "python.analysis.autoImportCompletions": true
 }

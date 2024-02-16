@@ -54,20 +54,12 @@ def sample_data():
     )
     assets = [asset1, asset2]
 
-    # Sample timeseries
-    ts = Timeseries(
-        start_date=date(2022, 1, 1),
-        end_date=date(2022, 12, 31),
-        period=Period.Daily,
-        data=[100] * 365,
-    )
-
-    return assets, ts
+    return assets
 
 
 def test_Character(sample_data):
-    assets, ts = sample_data
-    character = Character(name="John Doe", assets=assets, capital_g_Au=ts)
+    assets = sample_data
+    character = Character(name="John Doe", assets=assets, initial_capital_g_Au=1000)
     assert character.name == "John Doe"
     assert character.assets == assets
-    assert character.capital_g_Au == ts
+    assert character.initial_capital_g_Au == 1000
