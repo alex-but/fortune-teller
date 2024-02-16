@@ -16,7 +16,6 @@ This repository contains data models for a financial simulation, including defin
 - Abstract base class representing a generic asset owned by a character.
 - Attributes:
   - `initial_value`: Initial value of the asset.
-  - `cost`: Cost of acquiring the asset.
   - `purchase_date`: Date when the asset was purchased.
   - `currency`: Currency object representing the currency of the asset.
   - `sale_date`: Optional date when the asset was sold.

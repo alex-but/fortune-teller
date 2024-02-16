@@ -38,7 +38,6 @@ def sample_data():
     # Sample assets
     asset1 = RealEstateProperty(
         initial_value=1000,
-        cost=800,
         purchase_date=date(2022, 1, 1),
         currency="USD",
         sale_date=None,
@@ -48,7 +47,6 @@ def sample_data():
 
     asset2 = Loan(
         initial_value=2000,
-        cost=1500,
         purchase_date=date(2022, 1, 1),
         currency=currency,
         sale_date=None,

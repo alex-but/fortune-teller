@@ -19,10 +19,10 @@ class Stream:
 
 @dataclass(frozen=True, kw_only=True)
 class Asset(ABC):
-    """A stock asset owned by a character"""
+    """A stock asset owned by a character. The ownership is related to a
+    specific duration of time"""
 
     initial_value: int
-    cost: int  # cost is how much you pay for it, value is how much is worth
     purchase_date: date
     currency: Currency
     sale_date: date | None
