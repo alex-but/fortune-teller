@@ -116,6 +116,14 @@ This repository contains data models for a financial simulation, including defin
   - `data`: List of data points.
   - `pd_timeseries`: Pandas Series representing the timeseries.
 
+## Character
+
+- Represents a character in the financial simulation, which owns assets and has capital.
+- Attributes:
+  - `name`: Name of the character.
+  - `assets`: List of Asset objects owned by the character.
+  - `capital_g_Au`: Timeseries representing the capital (wealth) of the character over time in grams of gold.
+
 ## Usage
 
 To use the data models, simply import the required classes from the provided modules and create instances of the classes with the desired attributes. You can then use these instances to simulate financial scenarios, analyze the results, and visualize the data over time.
