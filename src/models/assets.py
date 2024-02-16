@@ -40,6 +40,7 @@ class RealEstateProperty(Asset):
     """A property owned by a character"""
 
     city: City
+    surface_sqm: float
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -59,3 +60,12 @@ class Loan(Asset):
     """Represents a loan. Will have a negative value and a negative cost"""
 
     end_date: date
+
+
+@dataclass(frozen=True, kw_only=True)
+class Job(Asset):
+    """A job is an asset producing money but is not vandable.
+    For the purpose of this program we only consider what are
+    the savings produced by a job"""
+
+    monthly_saving: int

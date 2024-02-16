@@ -34,6 +34,7 @@ This repository contains data models for a financial simulation, including defin
 - Inherits from Asset.
 - Attributes:
   - `city`: City object representing the city associated with the real estate property.
+  - `surface_sqm`: size of the real estate
 
 ### CommodityBundle
 
@@ -53,6 +54,12 @@ This repository contains data models for a financial simulation, including defin
 - Inherits from Asset.
 - Attributes:
   - `end_date`: Date when the loan ends.
+
+### Job
+
+- Represents a job of a character
+- Attributes:
+  - `monthly_saving`: how much of the job income can be saved
 
 ## World Elements
 

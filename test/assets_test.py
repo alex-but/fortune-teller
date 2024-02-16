@@ -1,6 +1,7 @@
 import pytest
 from datetime import date
 from src.models.assets import (
+    Job,
     Stream,
     Asset,
     StockBundle,
@@ -82,6 +83,7 @@ def test_RealEstateProperty(sample_data):
         currency=currency,
         sale_date=None,
         city=city,
+        surface_sqm=55.4,
     )
     assert real_estate_property.initial_value == 1000
     assert real_estate_property.cost == 800
@@ -89,6 +91,7 @@ def test_RealEstateProperty(sample_data):
     assert real_estate_property.sale_date is None
     assert real_estate_property.currency == currency
     assert real_estate_property.city == city
+    assert real_estate_property.surface_sqm == 55.4
 
 
 def test_ComodityBundle(sample_data):
@@ -141,3 +144,21 @@ def test_Loan(sample_data):
     assert loan.sale_date == date(2022, 12, 31)
     assert loan.currency == currency
     assert loan.end_date == date(2023, 12, 31)
+
+
+def test_job(sample_data):
+    currency, _, _, _, _ = sample_data
+    job = Job(
+        initial_value=-1000,
+        cost=-800,
+        purchase_date=date(2022, 1, 1),
+        currency=currency,
+        sale_date=date(2022, 12, 31),
+        monthly_saving=300,
+    )
+    assert job.initial_value == -1000
+    assert job.cost == -800
+    assert job.purchase_date == date(2022, 1, 1)
+    assert job.sale_date == date(2022, 12, 31)
+    assert job.currency == currency
+    assert job.monthly_saving == 300
