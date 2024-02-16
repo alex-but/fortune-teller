@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "fortuneteller"
+version = "0.1.0"
+description = "Tooklit to check investment impact over time"
+authors = ["Alexandru <alexandru.but@agile-robots.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
