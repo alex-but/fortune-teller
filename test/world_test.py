@@ -1,7 +1,7 @@
 import pytest
 from datetime import date
-from src.world import Currency, Country, City, Comodity, World
-from src.timeseries import Period, Timeseries
+from src.models.world import Currency, Country, City, Comodity, World
+from src.models.timeseries import Period, Timeseries
 
 
 @pytest.fixture

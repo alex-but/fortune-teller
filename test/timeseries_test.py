@@ -1,7 +1,7 @@
 from datetime import date
 import pandas as pd
 import pytest
-from src.timeseries import Period, Timeseries, DataToPeriodMissmatch
+from src.models.timeseries import Period, Timeseries, DataToPeriodMissmatch
 
 
 @pytest.fixture

@@ -1,6 +1,6 @@
 import pytest
 from datetime import date
-from src.assets import (
+from src.models.assets import (
     Stream,
     Asset,
     StockBundle,
@@ -9,8 +9,8 @@ from src.assets import (
     Saving,
     Loan,
 )
-from src.timeseries import Timeseries, Period
-from src.world import City, Comodity, Country, Currency
+from src.models.timeseries import Timeseries, Period
+from src.models.world import City, Comodity, Country, Currency
 
 
 @pytest.fixture
