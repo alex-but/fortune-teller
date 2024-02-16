@@ -1,0 +1,114 @@
+# Financial Simulation Data Models
+
+This repository contains data models for a financial simulation, including definitions of assets, world elements, and timeseries.
+
+## Asset Data Model
+
+### Stream
+
+- Represents a stream of cash, which can be positive (revenue) or negative (expense).
+- Attributes:
+  - `stream_value`: Timeseries object representing the value of the stream over time.
+  - `currency`: Currency object representing the currency of the stream.
+
+### Asset (Abstract)
+
+- Abstract base class representing a generic asset owned by a character.
+- Attributes:
+  - `initial_value`: Initial value of the asset.
+  - `cost`: Cost of acquiring the asset.
+  - `purchase_date`: Date when the asset was purchased.
+  - `currency`: Currency object representing the currency of the asset.
+  - `sale_date`: Optional date when the asset was sold.
+
+### StockBundle
+
+- Represents a stock asset owned by a character, bundled with information about the country.
+- Inherits from Asset.
+- Attributes:
+  - `country`: Country object representing the country associated with the stock bundle.
+
+### RealEstateProperty
+
+- Represents a real estate property owned by a character, bundled with information about the city.
+- Inherits from Asset.
+- Attributes:
+  - `city`: City object representing the city associated with the real estate property.
+
+### CommodityBundle
+
+- Represents a commodity asset owned by a character, bundled with information about the commodity.
+- Inherits from Asset.
+- Attributes:
+  - `commodity`: Commodity object representing the commodity associated with the bundle.
+
+### Saving
+
+- Represents a saving account owned by a character.
+- Inherits from Asset.
+
+### Loan
+
+- Represents a loan owned by a character.
+- Inherits from Asset.
+- Attributes:
+  - `end_date`: Date when the loan ends.
+
+## World Elements
+
+### Currency
+
+- Represents a currency used in the financial simulation.
+- Attributes:
+  - `name`: Name of the currency.
+  - `interest_rate`: Timeseries representing the interest rate of the currency.
+  - `inflation`: Timeseries representing the inflation rate of the currency.
+  - `units_per_g_Au`: Timeseries representing the units of the currency per gram of gold.
+
+### Country
+
+- Represents a country in the financial simulation.
+- Attributes:
+  - `name`: Name of the country.
+  - `currency`: Currency object representing the currency used in the country.
+  - `real_estate_aquisition_cost_percentage`: Percentage representing the cost of acquiring real estate properties in the country.
+  - `stock_index`: Timeseries representing the stock index of the country.
+
+### City
+
+- Represents a city in the financial simulation.
+- Attributes:
+  - `name`: Name of the city.
+  - `country`: Country object representing the country in which the city is located.
+  - `sqm_housing_price`: Timeseries representing the price per square meter of housing in the city.
+  - `yearly_rent_to_price_index`: Timeseries representing the yearly rent to price index ratio in the city.
+
+### Commodity
+
+- Represents a commodity like gold, silver, etc.
+- Attributes:
+  - `name`: Name of the commodity.
+  - `units_per_g_Au`: Timeseries representing the units of the commodity per gram of gold.
+
+### World
+
+- Represents the world in the financial simulation, consisting of currencies, countries, cities, and commodities.
+- Attributes:
+  - `name`: Name of the world.
+  - `currencies`: List of Currency objects in the world.
+  - `countries`: List of Country objects in the world.
+  - `cities`: List of City objects in the world.
+  - `commodities`: List of Commodity objects in the world.
+
+## Timeseries
+
+- Represents a series of data points collected over time.
+- Attributes:
+  - `start_date`: Start date of the timeseries.
+  - `end_date`: End date of the timeseries.
+  - `data`: List of data points.
+  - `pd_timeseries`: Pandas Series representing the timeseries.
+
+## Usage
+
+To use the data models, simply import the required classes from the provided modules and create instances of the classes with the desired attributes. You can then use these instances to simulate financial scenarios, analyze the results, and visualize the data over time.
