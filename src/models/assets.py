@@ -55,7 +55,7 @@ class Stock(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0)
+        return constant_asset_stream(0, self)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -67,7 +67,8 @@ class RealEstateProperty(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0)
+        """TODO: copute the value of the stream based on the country indicators"""
+        return constant_asset_stream(0, self)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -78,7 +79,7 @@ class ComodityBundle(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0)
+        return constant_asset_stream(0, self)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -87,7 +88,7 @@ class Saving(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0)
+        return constant_asset_stream(0, self)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -98,7 +99,7 @@ class Loan(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0)
+        return constant_asset_stream(0, self)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -111,4 +112,4 @@ class Job(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0)
+        return constant_asset_stream(self.monthly_saving, self)
