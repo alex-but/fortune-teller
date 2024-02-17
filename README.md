@@ -29,3 +29,21 @@ FortuneTeller offers users a clear understanding of the potential long-term fina
 ### Creating a Mock World
 
 Users are encouraged to create mock worlds within FortuneTeller, where they include time series of indicators for specific geographical regions. This allows for a more accurate simulation and evaluation of investment scenarios.
+
+# Developer Guide
+
+## Getting started
+
+Create a virtual environmnet and install dependencies using poetry:
+
+```sh
+poetry install
+```
+
+## Running the unit tests
+
+Pytest tests are configured to run the tests with the command below. The code coverage is also provided. It should never go below 90%
+
+```sh
+pytest --cov=src
+```
