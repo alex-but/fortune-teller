@@ -1,8 +1,10 @@
+import datetime
+import sre_compile
 import pytest
-from datetime import date
+from datetime import date, timedelta
 from src.models.character import Character
 from src.models.assets import RealEstateProperty, Loan
-from src.models.timeseries import Timeseries, Period
+from src.models.timeseries import DateOrderException, Timeseries, Period
 from src.models.world import City, Country, Currency
 
 
@@ -53,13 +55,33 @@ def sample_data():
         end_date=date(2044, 1, 31),
     )
     assets = [asset1, asset2]
-
-    return assets
+    start_investment_date = date(2024, 1, 31)
+    end_of_life = date(2025, 1, 31)
+    return assets, start_investment_date, end_of_life
 
 
 def test_Character(sample_data):
-    assets = sample_data
-    character = Character(name="John Doe", assets=assets, initial_capital_g_Au=1000)
+    assets, start_investment_date, end_of_life = sample_data
+    character = Character(
+        name="John Doe",
+        assets=assets,
+        start_investment_date=start_investment_date,
+        end_of_life=end_of_life,
+        initial_capital_g_Au=1000,
+    )
     assert character.name == "John Doe"
     assert character.assets == assets
     assert character.initial_capital_g_Au == 1000
+    assert character.end_of_life == end_of_life
+    assert character.start_investment_date == start_investment_date
+
+
+def test_invalid_Character(sample_data):
+    assets, start_investment_date, _ = sample_data
+    too_early_end_of_life = start_investment_date - timedelta(days=1)
+    with pytest.raises(DateOrderException):
+        Character(
+            name="John Doe",
+            start_investment_date=start_investment_date,
+            end_of_life=too_early_end_of_life,
+        )
