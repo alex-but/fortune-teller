@@ -20,7 +20,7 @@ This repository contains data models for a financial simulation, including defin
   - `currency`: Currency object representing the currency of the asset.
   - `sale_date`: Optional date when the asset was sold.
 
-### StockBundle
+### Stock
 
 - Represents a stock asset owned by a character, bundled with information about the country.
 - Inherits from Asset.

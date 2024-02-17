@@ -46,7 +46,7 @@ class DataToPeriodMissmatch(Exception):
 
 def get_samples_in_period(start: date, end: date, frequency: Frequency) -> int:
     """counts how many samples in a period, given a frequency"""
-    return len(pd.date_range(start=start, end=end, freq=frequency))
+    return len(pd.date_range(start=start, end=end, freq=frequency.value))
 
 
 @dataclass(kw_only=True)
