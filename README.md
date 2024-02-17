@@ -30,6 +30,8 @@ FortuneTeller offers users a clear understanding of the potential long-term fina
 
 Users are encouraged to create mock worlds within FortuneTeller, where they include time series of indicators for specific geographical regions. This allows for a more accurate simulation and evaluation of investment scenarios.
 
+The guide for the model structure is documented in [src/models/README.md](src/models/README.md)
+
 # Developer Guide
 
 ## Getting started
