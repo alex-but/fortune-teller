@@ -27,7 +27,9 @@ class Character:
 
     @property
     def capital_g_Au(self) -> Timeseries:
-        """TODO computed capital over time"""
+        """TODO computed capital over time. This is the initial capital summed up with all the
+        streams produced by the owned assets. This capital can never be negative. An ownership
+        cannot be added or removed if it produces a negative capital value"""
         pass
 
     @property
