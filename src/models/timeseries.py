@@ -15,6 +15,16 @@ class Period(Enum):
     Yearly: str = "YE"
 
 
+class DateOrderException(Exception):
+    """End date is before the begnning date"""
+
+    def __init__(self, start_date: date, end_date: date, message: str):
+        self.start_date = start_date
+        self.end_date = end_date
+        self.message = message
+        super().__init__(message)
+
+
 class DataToPeriodMissmatch(Exception):
     """Show that data does not have the number of samples expected by a timeseries"""
 
@@ -43,6 +53,13 @@ class Timeseries:
     pd_timeseries: pd.Series = field(init=False, repr=False)
 
     def __post_init__(self):
+        if self.start_date > self.end_date:
+            raise DateOrderException(
+                start_date=self.start_date,
+                end_date=self.end_date,
+                message=f"""start date {self.start_date} is later than
+                            end date {self.end_date} in the timeseries""",
+            )
         datetimeindex = pd.date_range(
             start=self.start_date, end=self.end_date, freq=self.period.value
         )
@@ -53,7 +70,8 @@ class Timeseries:
                 end_date=self.end_date,
                 period=self.period,
                 no_samples=len(self.data),
-                message="""Cannot initialize timeseries with the given data. The length
-                        of the data does not mactch the number of samples from the period""",
+                message=f"""Cannot initialize timeseries with the given data. The length
+                        of the data {len(datetimeindex)} does not mactch the number of 
+                        samples from the period: {len(self.data)}""",
             )
         self.pd_timeseries = pd.Series(self.data, index=datetimeindex)
