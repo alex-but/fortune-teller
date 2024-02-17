@@ -38,6 +38,11 @@ class Asset(ABC):
     def stream(self) -> Timeseries:
         """returns the revenue (positive) or expense (negative) stream produced by the asset"""
 
+    @property
+    @abstractmethod
+    def value(self) -> Timeseries:
+        """value of the asset over time."""
+
 
 @dataclass(frozen=True, kw_only=True)
 class Stock(Asset):
@@ -47,6 +52,12 @@ class Stock(Asset):
 
     @property
     def stream(self) -> Timeseries:
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
+
+    @property
+    def value(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
@@ -66,6 +77,12 @@ class RealEstateProperty(Asset):
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
 
+    @property
+    def value(self) -> Timeseries:
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
+
 
 @dataclass(frozen=True, kw_only=True)
 class ComodityBundle(Asset):
@@ -79,6 +96,12 @@ class ComodityBundle(Asset):
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
 
+    @property
+    def value(self) -> Timeseries:
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
+
 
 @dataclass(frozen=True, kw_only=True)
 class Saving(Asset):
@@ -86,6 +109,12 @@ class Saving(Asset):
 
     @property
     def stream(self) -> Timeseries:
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
+
+    @property
+    def value(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
@@ -103,6 +132,12 @@ class Loan(Asset):
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
 
+    @property
+    def value(self) -> Timeseries:
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
+
 
 @dataclass(frozen=True, kw_only=True)
 class Job(Asset):
@@ -116,4 +151,10 @@ class Job(Asset):
     def stream(self) -> Timeseries:
         return constant_timeseries(
             self.monthly_saving, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
+
+    @property
+    def value(self) -> Timeseries:
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
