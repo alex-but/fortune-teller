@@ -6,7 +6,12 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Optional
 
-from .timeseries import Frequency, Timeseries, get_samples_in_period
+from .timeseries import (
+    Frequency,
+    Timeseries,
+    constant_timeseries,
+    get_samples_in_period,
+)
 from .world import City, Comodity, Country, Currency
 
 
@@ -34,19 +39,6 @@ class Asset(ABC):
         """returns the revenue (positive) or expense (negative) stream produced by the asset"""
 
 
-def constant_asset_stream(value: int, asset: Asset) -> Timeseries:
-    frequency = Frequency.Monthly
-    data = [value] * get_samples_in_period(
-        asset.purchase_date, asset.sale_date, frequency
-    )
-    return Timeseries(
-        start_date=asset.purchase_date,
-        end_date=asset.sale_date,
-        frequency=frequency,
-        data=data,
-    )
-
-
 @dataclass(frozen=True, kw_only=True)
 class Stock(Asset):
     """A stock asset owned by a character"""
@@ -55,7 +47,9 @@ class Stock(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0, self)
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -68,7 +62,9 @@ class RealEstateProperty(Asset):
     @property
     def stream(self) -> Timeseries:
         """TODO: copute the value of the stream based on the country indicators"""
-        return constant_asset_stream(0, self)
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -79,7 +75,9 @@ class ComodityBundle(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0, self)
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -88,7 +86,9 @@ class Saving(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0, self)
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -99,7 +99,9 @@ class Loan(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(0, self)
+        return constant_timeseries(
+            0, self.purchase_date, self.sale_date, Frequency.Monthly
+        )
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -112,4 +114,6 @@ class Job(Asset):
 
     @property
     def stream(self) -> Timeseries:
-        return constant_asset_stream(self.monthly_saving, self)
+        return constant_timeseries(
+            self.monthly_saving, self.purchase_date, self.sale_date, Frequency.Monthly
+        )

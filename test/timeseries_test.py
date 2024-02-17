@@ -6,6 +6,7 @@ from src.models.timeseries import (
     Frequency,
     Timeseries,
     DataToPeriodMissmatch,
+    constant_timeseries,
 )
 
 
@@ -73,3 +74,14 @@ def test_invalid_timeseries_mismatched_date_order(
         Timeseries(
             start_date=start_date, end_date=end_date, frequency=frequency, data=data
         )
+
+
+def test_constant_asset_stream():
+    ts = constant_timeseries(
+        100, date(2022, 1, 1), date(2022, 12, 31), Frequency.Monthly
+    )
+    assert ts.start_date == date(2022, 1, 1)
+    assert ts.end_date == date(2022, 12, 31)
+    assert ts.frequency == Frequency.Monthly
+    assert len(ts.data) == 12  # Assuming monthly frequency for simplicity
+    assert all(value == 100 for value in ts.data)

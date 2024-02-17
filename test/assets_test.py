@@ -9,9 +9,8 @@ from src.models.assets import (
     ComodityBundle,
     Saving,
     Loan,
-    constant_asset_stream,
 )
-from src.models.timeseries import Timeseries, Frequency
+from src.models.timeseries import Timeseries, Frequency, constant_timeseries
 from src.models.world import City, Comodity, Country, Currency
 
 
@@ -147,7 +146,9 @@ def test_job(sample_data):
         monthly_saving=300,
     )
 
-    expected_stream = constant_asset_stream(300, job)
+    expected_stream = constant_timeseries(
+        300, date(2022, 1, 1), date(2022, 12, 31), Frequency.Monthly
+    )
     stream = job.stream
     assert stream.data == expected_stream.data
     assert job.initial_value == -1000
@@ -155,20 +156,3 @@ def test_job(sample_data):
     assert job.sale_date == date(2022, 12, 31)
     assert job.currency == currency
     assert job.monthly_saving == 300
-
-
-def test_constant_asset_stream(sample_data):
-    currency, _, _, _, _ = sample_data
-    job = Job(
-        initial_value=-1000,
-        purchase_date=date(2022, 1, 1),
-        currency=currency,
-        sale_date=date(2022, 12, 31),
-        monthly_saving=300,
-    )
-    ts = constant_asset_stream(100, job)
-    assert ts.start_date == date(2022, 1, 1)
-    assert ts.end_date == date(2022, 12, 31)
-    assert ts.frequency == Frequency.Monthly
-    assert len(ts.data) == 12  # Assuming monthly frequency for simplicity
-    assert all(value == 100 for value in ts.data)

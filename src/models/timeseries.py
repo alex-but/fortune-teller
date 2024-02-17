@@ -44,11 +44,6 @@ class DataToPeriodMissmatch(Exception):
         super().__init__(message)
 
 
-def get_samples_in_period(start: date, end: date, frequency: Frequency) -> int:
-    """counts how many samples in a period, given a frequency"""
-    return len(pd.date_range(start=start, end=end, freq=frequency.value))
-
-
 @dataclass(kw_only=True)
 class Timeseries:
     start_date: date = field(default_factory=date)
@@ -80,3 +75,20 @@ class Timeseries:
                         samples from the period: {len(self.data)}""",
             )
         self.pd_timeseries = pd.Series(self.data, index=datetimeindex)
+
+
+def get_samples_in_period(start: date, end: date, frequency: Frequency) -> int:
+    """counts how many samples in a period, given a frequency"""
+    return len(pd.date_range(start=start, end=end, freq=frequency.value))
+
+
+def constant_timeseries(
+    value: int, start: date, end: date, frequency: Frequency
+) -> Timeseries:
+    data = [value] * get_samples_in_period(start, end, frequency)
+    return Timeseries(
+        start_date=start,
+        end_date=end,
+        frequency=frequency,
+        data=data,
+    )
