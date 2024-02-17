@@ -9,7 +9,7 @@ from enum import Enum
 import pandas as pd
 
 
-class Period(Enum):
+class Frequency(Enum):
     Daily: str = "D"
     Monthly: str = "ME"
     Yearly: str = "YE"
@@ -32,23 +32,28 @@ class DataToPeriodMissmatch(Exception):
         self,
         start_date: date,
         end_date: date,
-        period: Period,
+        frequency: Frequency,
         no_samples: int,
         message: str,
     ):
         self.start_date = start_date
         self.end_date = end_date
-        self.period = Period
+        self.frequency = frequency
         self.no_samples = no_samples
         self.message = message
         super().__init__(message)
+
+
+def get_samples_in_period(start: date, end: date, frequency: Frequency) -> int:
+    """counts how many samples in a period, given a frequency"""
+    return len(pd.date_range(start=start, end=end, freq=frequency))
 
 
 @dataclass(kw_only=True)
 class Timeseries:
     start_date: date = field(default_factory=date)
     end_date: date = field(default_factory=date)
-    period: Period = field(default_factory=Period)
+    frequency: Frequency = field(default_factory=Frequency)
     data: list[float] = field(default_factory=list, repr=False)
     pd_timeseries: pd.Series = field(init=False, repr=False)
 
@@ -61,14 +66,14 @@ class Timeseries:
                             end date {self.end_date} in the timeseries""",
             )
         datetimeindex = pd.date_range(
-            start=self.start_date, end=self.end_date, freq=self.period.value
+            start=self.start_date, end=self.end_date, freq=self.frequency.value
         )
 
         if len(datetimeindex) != len(self.data):
             raise DataToPeriodMissmatch(
                 start_date=self.start_date,
                 end_date=self.end_date,
-                period=self.period,
+                frequency=self.frequency,
                 no_samples=len(self.data),
                 message=f"""Cannot initialize timeseries with the given data. The length
                         of the data {len(datetimeindex)} does not mactch the number of 

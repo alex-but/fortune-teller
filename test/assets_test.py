@@ -10,7 +10,7 @@ from src.models.assets import (
     Saving,
     Loan,
 )
-from src.models.timeseries import Timeseries, Period
+from src.models.timeseries import Timeseries, Frequency
 from src.models.world import City, Comodity, Country, Currency
 
 
@@ -20,7 +20,7 @@ def sample_data():
     ts = Timeseries(
         start_date=date(2022, 1, 1),
         end_date=date(2022, 12, 31),
-        period=Period.Daily,
+        frequency=Frequency.Daily,
         data=[100] * 365,
     )
 

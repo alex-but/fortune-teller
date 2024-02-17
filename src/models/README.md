@@ -112,6 +112,7 @@ This repository contains data models for a financial simulation, including defin
 - Attributes:
   - `start_date`: Start date of the timeseries.
   - `end_date`: End date of the timeseries.
+  - `frequency`: Frequency of the data samples: can be daily, montlhly or yearly
   - `data`: List of data points.
   - `pd_timeseries`: Pandas Series representing the timeseries.
 

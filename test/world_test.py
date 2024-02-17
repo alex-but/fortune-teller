@@ -1,7 +1,7 @@
 import pytest
 from datetime import date
 from src.models.world import Currency, Country, City, Comodity, World
-from src.models.timeseries import Period, Timeseries
+from src.models.timeseries import Frequency, Timeseries
 
 
 @pytest.fixture
@@ -10,7 +10,7 @@ def sample_data():
     ts = Timeseries(
         start_date=date(2022, 1, 1),
         end_date=date(2022, 12, 31),
-        period=Period.Daily,
+        frequency=Frequency.Daily,
         data=[100] * 365,
     )
 
