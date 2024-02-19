@@ -149,7 +149,7 @@ def test_job(sample_data):
     expected_stream = constant_timeseries(
         300, date(2022, 1, 1), date(2022, 12, 31), Frequency.Monthly
     )
-    stream = job.stream
+    stream = job.stream_g_Au
     assert stream.data == expected_stream.data
     assert job.initial_value == -1000
     assert job.purchase_date == date(2022, 1, 1)
