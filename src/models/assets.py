@@ -17,7 +17,7 @@ from .world import City, Comodity, Country, Currency
 
 @dataclass
 class Stream:
-    """A stream of cash. Can be positive (revenue) or negative (expense)"""
+    """A stream_g_Au of cash. Can be positive (revenue) or negative (expense)"""
 
     stream_value: Timeseries
     currency: Currency
@@ -35,13 +35,13 @@ class Asset(ABC):
 
     @property
     @abstractmethod
-    def stream(self) -> Timeseries:
-        """returns the revenue (positive) or expense (negative) stream produced by the asset"""
+    def stream_g_Au(self) -> Timeseries:
+        """returns the revenue (positive) or expense (negative) stream_g_Au produced by the asset"""
 
     @property
     @abstractmethod
-    def value(self) -> Timeseries:
-        """value of the asset over time."""
+    def value_g_Au(self) -> Timeseries:
+        """value of the asset over time measured in gold."""
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -51,13 +51,13 @@ class Stock(Asset):
     country: Country
 
     @property
-    def stream(self) -> Timeseries:
+    def stream_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
 
     @property
-    def value(self) -> Timeseries:
+    def value_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
@@ -71,14 +71,14 @@ class RealEstateProperty(Asset):
     surface_sqm: float
 
     @property
-    def stream(self) -> Timeseries:
-        """TODO: copute the value of the stream based on the country indicators"""
+    def stream_g_Au(self) -> Timeseries:
+        """TODO: computef value of the stream based on the country indicators"""
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
 
     @property
-    def value(self) -> Timeseries:
+    def value_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
@@ -91,13 +91,13 @@ class ComodityBundle(Asset):
     commodity: Comodity
 
     @property
-    def stream(self) -> Timeseries:
+    def stream_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
 
     @property
-    def value(self) -> Timeseries:
+    def value_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
@@ -108,13 +108,13 @@ class Saving(Asset):
     """Saving account. All sales should result in a new saving"""
 
     @property
-    def stream(self) -> Timeseries:
+    def stream_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
 
     @property
-    def value(self) -> Timeseries:
+    def value_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
@@ -122,18 +122,18 @@ class Saving(Asset):
 
 @dataclass(frozen=True, kw_only=True)
 class Loan(Asset):
-    """Represents a loan. Will have a negative value and a negative cost"""
+    """Represents a loan. Will have a negative value_g_Au and a negative cost"""
 
     end_date: date
 
     @property
-    def stream(self) -> Timeseries:
+    def stream_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
 
     @property
-    def value(self) -> Timeseries:
+    def value_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
@@ -148,13 +148,13 @@ class Job(Asset):
     monthly_saving: int
 
     @property
-    def stream(self) -> Timeseries:
+    def stream_g_Au(self) -> Timeseries:
         return constant_timeseries(
             self.monthly_saving, self.purchase_date, self.sale_date, Frequency.Monthly
         )
 
     @property
-    def value(self) -> Timeseries:
+    def value_g_Au(self) -> Timeseries:
         return constant_timeseries(
             0, self.purchase_date, self.sale_date, Frequency.Monthly
         )
