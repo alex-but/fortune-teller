@@ -4,7 +4,7 @@ import pytest
 from datetime import date, timedelta
 from src.models.character import Character
 from src.models.assets import RealEstateProperty, Loan
-from src.models.timeseries import DateOrderException, Timeseries, Frequency
+from src.models.timeseries import DateOrderException, Timeseries
 from src.models.world import City, Country, Currency
 
 
@@ -14,8 +14,7 @@ def sample_data():
     ts = Timeseries(
         start_date=date(2022, 1, 1),
         end_date=date(2022, 12, 31),
-        frequency=Frequency.Daily,
-        data=[100] * 365,
+        data=[100] * 12,
     )
 
     # Sample currency data

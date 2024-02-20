@@ -108,13 +108,11 @@ This repository contains data models for a financial simulation, including defin
 
 ## Timeseries
 
-- Represents a series of data points collected over time.
+- Represents a series of montlhy data points. Month and year of start date and end date are taken into consideration
 - Attributes:
   - `start_date`: Start date of the timeseries.
   - `end_date`: End date of the timeseries.
-  - `frequency`: Frequency of the data samples: can be daily, montlhly or yearly
   - `data`: List of data points.
-  - `pd_timeseries`: Pandas Series representing the timeseries.
 
 ## Character
 

@@ -7,10 +7,8 @@ from datetime import date
 from typing import Optional
 
 from .timeseries import (
-    Frequency,
     Timeseries,
     constant_timeseries,
-    get_samples_in_period,
 )
 from .world import City, Comodity, Country, Currency
 
@@ -52,15 +50,11 @@ class Stock(Asset):
 
     @property
     def stream_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -73,15 +67,11 @@ class RealEstateProperty(Asset):
     @property
     def stream_g_Au(self) -> Timeseries:
         """TODO: computef value of the stream based on the country indicators"""
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -92,15 +82,11 @@ class ComodityBundle(Asset):
 
     @property
     def stream_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -109,15 +95,11 @@ class Saving(Asset):
 
     @property
     def stream_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -128,15 +110,11 @@ class Loan(Asset):
 
     @property
     def stream_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -150,11 +128,9 @@ class Job(Asset):
     @property
     def stream_g_Au(self) -> Timeseries:
         return constant_timeseries(
-            self.monthly_saving, self.purchase_date, self.sale_date, Frequency.Monthly
+            self.monthly_saving, self.purchase_date, self.sale_date
         )
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(
-            0, self.purchase_date, self.sale_date, Frequency.Monthly
-        )
+        return constant_timeseries(0, self.purchase_date, self.sale_date)
