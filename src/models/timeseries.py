@@ -9,10 +9,9 @@ from enum import Enum
 import pandas as pd
 
 
-class Frequency(Enum):
-    Daily: str = "D"
-    Monthly: str = "ME"
-    Yearly: str = "YE"
+def months_in_interval(start: date, end: date) -> int:
+    """returns the number of months in a date interval"""
+    return (end.year - start.year) * 12 + end.month - start.month + 1
 
 
 class DateOrderException(Exception):
@@ -32,13 +31,11 @@ class DataToPeriodMissmatch(Exception):
         self,
         start_date: date,
         end_date: date,
-        frequency: Frequency,
         no_samples: int,
         message: str,
     ):
         self.start_date = start_date
         self.end_date = end_date
-        self.frequency = frequency
         self.no_samples = no_samples
         self.message = message
         super().__init__(message)
@@ -46,11 +43,11 @@ class DataToPeriodMissmatch(Exception):
 
 @dataclass(kw_only=True)
 class Timeseries:
-    start_date: date = field(default_factory=date)
-    end_date: date = field(default_factory=date)
-    frequency: Frequency = field(default_factory=Frequency)
-    data: list[float] = field(default_factory=list, repr=False)
-    pd_timeseries: pd.Series = field(init=False, repr=False)
+    """A timeseries of Monthly data."""
+
+    start_date: date
+    end_date: date
+    data: list[float]
 
     def __post_init__(self):
         if self.start_date > self.end_date:
@@ -60,35 +57,20 @@ class Timeseries:
                 message=f"""start date {self.start_date} is later than
                             end date {self.end_date} in the timeseries""",
             )
-        datetimeindex = pd.date_range(
-            start=self.start_date, end=self.end_date, freq=self.frequency.value
-        )
 
-        if len(datetimeindex) != len(self.data):
+        if months_in_interval(self.start_date, self.end_date) != len(self.data):
             raise DataToPeriodMissmatch(
                 start_date=self.start_date,
                 end_date=self.end_date,
-                frequency=self.frequency,
                 no_samples=len(self.data),
-                message=f"""Cannot initialize timeseries with the given data. The length
-                        of the data {len(datetimeindex)} does not mactch the number of 
-                        samples from the period: {len(self.data)}""",
+                message=f"""Timeseries init error: The length of the data {len(self.data)} does not mactch the number of samples from the period: {months_in_interval(self.start_date, self.end_date)}""",
             )
-        self.pd_timeseries = pd.Series(self.data, index=datetimeindex)
 
 
-def get_samples_in_period(start: date, end: date, frequency: Frequency) -> int:
-    """counts how many samples in a period, given a frequency"""
-    return len(pd.date_range(start=start, end=end, freq=frequency.value))
-
-
-def constant_timeseries(
-    value: int, start: date, end: date, frequency: Frequency
-) -> Timeseries:
-    data = [value] * get_samples_in_period(start, end, frequency)
+def constant_timeseries(value: int, start: date, end: date) -> Timeseries:
+    data = [value] * months_in_interval(start, end)
     return Timeseries(
         start_date=start,
         end_date=end,
-        frequency=frequency,
         data=data,
     )

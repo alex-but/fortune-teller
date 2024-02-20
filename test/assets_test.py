@@ -10,7 +10,7 @@ from src.models.assets import (
     Saving,
     Loan,
 )
-from src.models.timeseries import Timeseries, Frequency, constant_timeseries
+from src.models.timeseries import Timeseries, constant_timeseries
 from src.models.world import City, Comodity, Country, Currency
 
 
@@ -20,8 +20,7 @@ def sample_data():
     ts = Timeseries(
         start_date=date(2022, 1, 1),
         end_date=date(2022, 12, 31),
-        frequency=Frequency.Daily,
-        data=[100] * 365,
+        data=[100] * 12,
     )
 
     # Sample currency data
@@ -146,9 +145,7 @@ def test_job(sample_data):
         monthly_saving=300,
     )
 
-    expected_stream = constant_timeseries(
-        300, date(2022, 1, 1), date(2022, 12, 31), Frequency.Monthly
-    )
+    expected_stream = constant_timeseries(300, date(2022, 1, 1), date(2022, 12, 31))
     stream = job.stream_g_Au
     assert stream.data == expected_stream.data
     assert job.initial_value == -1000
