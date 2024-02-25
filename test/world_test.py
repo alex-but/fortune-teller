@@ -20,7 +20,7 @@ def sample_data():
     country = Country(
         name="USA",
         currency=currency,
-        real_estate_aquisition_cost_percentage=5,
+        real_estate_acquisition_cost_percentage=5,
         stock_index=ts,
     )
 
