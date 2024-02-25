@@ -18,7 +18,7 @@ def sample_data():
     )
 
     # Sample currency data
-    currency = Currency(name="USD", interest_rate=ts, inflation=ts, units_per_g_Au=ts)
+    currency = Currency(name="USD", interest_rate=ts, units_per_g_Au=ts)
 
     # Sample country data
     country = Country(

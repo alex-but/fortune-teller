@@ -4,6 +4,8 @@
 from dataclasses import dataclass
 from datetime import date
 
+import pandas as pd
+
 
 def months_in_interval(start: date, end: date) -> int:
     """returns the number of months in a date interval"""
@@ -179,9 +181,39 @@ class Timeseries:
             start_date=time_range.start, end_date=time_range.stop, data=sliced_data
         )
 
+    @property
+    def pd_timeseries(self):
+        range = pd.date_range(self.start_date, self.end_date, freq="ME")
+        return pd.Series(self.data, index=range)
 
-def constant_timeseries(value: int, start: date, end: date) -> Timeseries:
+
+def constant_timeseries(value: float, start: date, end: date) -> Timeseries:
     data = [value] * months_in_interval(start, end)
+    return Timeseries(
+        start_date=start,
+        end_date=end,
+        data=data,
+    )
+
+
+def constant_increase_timeseries(
+    first_value: float, monthly_increase_rate: float, start: date, end: date
+) -> Timeseries:
+    """computes a constantly increasing timeseries
+
+    Args:
+        value (float): value to start with
+        monthly_increase_rate (float): percentage of monthly increase (can be negative)
+        start (date):
+        end (date):
+
+    Returns:
+        Timeseries: resulting timeseries
+    """
+    data = [first_value] * months_in_interval(start, end)
+    for index in range(1, len(data)):
+        data[index] = data[index - 1] * (1 + monthly_increase_rate)
+
     return Timeseries(
         start_date=start,
         end_date=end,

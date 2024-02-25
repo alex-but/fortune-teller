@@ -68,7 +68,6 @@ This repository contains data models for a financial simulation, including defin
 - Attributes:
   - `name`: Name of the currency.
   - `interest_rate`: Timeseries representing the interest rate of the currency.
-  - `inflation`: Timeseries representing the inflation rate of the currency.
   - `units_per_g_Au`: Timeseries representing the units of the currency per gram of gold.
 
 ### Country
@@ -77,7 +76,7 @@ This repository contains data models for a financial simulation, including defin
 - Attributes:
   - `name`: Name of the country.
   - `currency`: Currency object representing the currency used in the country.
-  - `real_estate_aquisition_cost_percentage`: Percentage representing the cost of acquiring real estate properties in the country.
+  - `real_estate_acquisition_cost_percentage`: Percentage representing the cost of acquiring real estate properties in the country.
   - `stock_index`: Timeseries representing the stock index of the country.
 
 ### City

@@ -13,22 +13,21 @@ from .timeseries import Timeseries
 class Currency:
     name: str
     interest_rate: Timeseries
-    inflation: Timeseries
     units_per_g_Au: Timeseries
 
 
 @dataclass(frozen=True, kw_only=True)
 class Country:
-    """ Country object to define country specific indicators.
-    
+    """Country object to define country specific indicators.
+
     Arguments:
         name (str): name of the country
         currency (Currency): the currency used in this country
         real_estate_acquisition_cost_percentage (int): percentage of real estate value
             payed as taxes when buying real estate
-        stock_index: appreciation of the main stock index over time relative to an arbitrary
-            moment
+        stock_index (Timeseries): unit value of the main stock index over time
     """
+
     name: str
     currency: Currency
     real_estate_acquisition_cost_percentage: int

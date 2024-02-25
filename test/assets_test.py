@@ -10,7 +10,12 @@ from src.models.assets import (
     Saving,
     Loan,
 )
-from src.models.timeseries import Timeseries, constant_timeseries
+from src.models.timeseries import (
+    Timeseries,
+    constant_increase_timeseries,
+    constant_timeseries,
+    months_in_interval,
+)
 from src.models.world import City, Commodity, Country, Currency
 
 
@@ -24,7 +29,7 @@ def sample_data():
     )
 
     # Sample currency data
-    currency = Currency(name="USD", interest_rate=ts, inflation=ts, units_per_g_Au=ts)
+    currency = Currency(name="USD", interest_rate=ts, units_per_g_Au=ts)
 
     # Sample country data
     country = Country(
@@ -153,3 +158,40 @@ def test_job(sample_data):
     assert job.sale_date == date(2022, 12, 31)
     assert job.currency == currency
     assert job.monthly_saving == 300
+
+
+def test_stock_value():
+    """stock value is a timeseries in g Au that depend on the stock country currency.
+
+    Testing one year of data with all values constant"""
+    start = date(2024, 1, 1)
+    end = date(2024, 12, 31)
+    euro = Currency(
+        name="EUR",
+        interest_rate=constant_timeseries(0.03, start, end),
+        units_per_g_Au=constant_timeseries(10, start, end),
+    )
+    Germany = Country(
+        name="DE",
+        currency=euro,
+        real_estate_acquisition_cost_percentage=9,
+        stock_index=constant_increase_timeseries(
+            first_value=3, monthly_increase_rate=0.012, start=start, end=end
+        ),
+    )
+
+    stock = Stock(
+        initial_value=100,
+        purchase_date=start,
+        sale_date=end,
+        country=Germany,
+        currency=euro,
+    )
+
+    stock_value = stock.value_g_Au
+    assert len(stock_value.data) == months_in_interval(start, end)
+    assert stock_value[start] == (100) * (1 / 10)
+    # second month stock have increased by 1.2%
+    assert stock_value[date(start.year, start.month + 1, start.day)] == 100 * (
+        1 + 0.012
+    ) * (1 / 10)
