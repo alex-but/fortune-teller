@@ -4,7 +4,7 @@ import pytest
 from src.models.timeseries import (
     DateOrderException,
     Timeseries,
-    DataToPeriodMissmatch,
+    DataToPeriodMismatch,
     constant_timeseries,
 )
 
@@ -39,7 +39,7 @@ def test_valid_monthly_timeseries(valid_monthly_timeseries):
 
 def test_invalid_timeseries_mismatched_data(invalid_timeseries_mismatched_data):
     start_date, end_date, data = invalid_timeseries_mismatched_data
-    with pytest.raises(DataToPeriodMissmatch):
+    with pytest.raises(DataToPeriodMismatch):
         Timeseries(start_date=start_date, end_date=end_date, data=data)
 
 

@@ -21,7 +21,7 @@ class Currency:
 class Country:
     name: str
     currency: Currency
-    real_estate_aquisition_cost_percentage: int
+    real_estate_acquisition_cost_percentage: int
     stock_index: Timeseries
 
 
@@ -34,8 +34,8 @@ class City:
 
 
 @dataclass(frozen=True, kw_only=True)
-class Comodity:
-    """A comodity like gold, silver etc."""
+class Commodity:
+    """A commodity like gold, silver etc."""
 
     name: str
     units_per_g_Au: Timeseries
@@ -47,4 +47,4 @@ class World:
     currencies: list[Currency]
     countries: list[Country]
     cities: list[City]
-    comodities: list[Comodity]
+    comodities: list[Commodity]

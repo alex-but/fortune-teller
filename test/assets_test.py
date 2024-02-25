@@ -6,12 +6,12 @@ from src.models.assets import (
     Asset,
     Stock,
     RealEstateProperty,
-    ComodityBundle,
+    CommodityBundle,
     Saving,
     Loan,
 )
 from src.models.timeseries import Timeseries, constant_timeseries
-from src.models.world import City, Comodity, Country, Currency
+from src.models.world import City, Commodity, Country, Currency
 
 
 @pytest.fixture
@@ -42,10 +42,10 @@ def sample_data():
         yearly_rent_to_price_index=ts,
     )
 
-    # Sample comodity data
-    comodity = Comodity(name="Gold", units_per_g_Au=ts)
+    # Sample commodity data
+    commodity = Commodity(name="Gold", units_per_g_Au=ts)
 
-    return currency, country, city, comodity, ts
+    return currency, country, city, commodity, ts
 
 
 def test_Stream(sample_data):
@@ -89,20 +89,20 @@ def test_RealEstateProperty(sample_data):
     assert real_estate_property.surface_sqm == 55.4
 
 
-def test_ComodityBundle(sample_data):
-    currency, _, _, comodity, _ = sample_data
-    comodity_bundle = ComodityBundle(
+def test_CommodityBundle(sample_data):
+    currency, _, _, commodity, _ = sample_data
+    commodity_bundle = CommodityBundle(
         initial_value=1000,
         purchase_date=date(2022, 1, 1),
         currency=currency,
         sale_date=None,
-        commodity=comodity,
+        commodity=commodity,
     )
-    assert comodity_bundle.initial_value == 1000
-    assert comodity_bundle.purchase_date == date(2022, 1, 1)
-    assert comodity_bundle.sale_date is None
-    assert comodity_bundle.currency == currency
-    assert comodity_bundle.commodity == comodity
+    assert commodity_bundle.initial_value == 1000
+    assert commodity_bundle.purchase_date == date(2022, 1, 1)
+    assert commodity_bundle.sale_date is None
+    assert commodity_bundle.currency == currency
+    assert commodity_bundle.commodity == commodity
 
 
 def test_Saving(sample_data):

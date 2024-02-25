@@ -1,6 +1,6 @@
 import pytest
 from datetime import date
-from src.models.world import Currency, Country, City, Comodity, World
+from src.models.world import Currency, Country, City, Commodity, World
 from src.models.timeseries import Timeseries
 
 
@@ -32,8 +32,8 @@ def sample_data():
         yearly_rent_to_price_index=ts,
     )
 
-    # Sample comodity data
-    comodity = Comodity(name="Gold", units_per_g_Au=ts)
+    # Sample commodity data
+    commodity = Commodity(name="Gold", units_per_g_Au=ts)
 
     # Sample world data
     world = World(
@@ -41,10 +41,10 @@ def sample_data():
         currencies=[currency],
         countries=[country],
         cities=[city],
-        comodities=[comodity],
+        comodities=[commodity],
     )
 
-    return currency, country, city, comodity, world
+    return currency, country, city, commodity, world
 
 
 def test_Currency(sample_data):
@@ -65,9 +65,9 @@ def test_City(sample_data):
     assert city.country.name == "USA"
 
 
-def test_Comodity(sample_data):
-    _, _, _, comodity, _ = sample_data
-    assert comodity.name == "Gold"
+def test_Commodity(sample_data):
+    _, _, _, commodity, _ = sample_data
+    assert commodity.name == "Gold"
 
 
 def test_World(sample_data):

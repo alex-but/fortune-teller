@@ -10,7 +10,7 @@ from .timeseries import (
     Timeseries,
     constant_timeseries,
 )
-from .world import City, Comodity, Country, Currency
+from .world import City, Commodity, Country, Currency
 
 
 @dataclass
@@ -66,7 +66,7 @@ class RealEstateProperty(Asset):
 
     @property
     def stream_g_Au(self) -> Timeseries:
-        """TODO: computef value of the stream based on the country indicators"""
+        """TODO: computed value of the stream based on the country indicators"""
         return constant_timeseries(0, self.purchase_date, self.sale_date)
 
     @property
@@ -75,10 +75,10 @@ class RealEstateProperty(Asset):
 
 
 @dataclass(frozen=True, kw_only=True)
-class ComodityBundle(Asset):
-    """A comodity asset owned by a character"""
+class CommodityBundle(Asset):
+    """A commodity asset owned by a character"""
 
-    commodity: Comodity
+    commodity: Commodity
 
     @property
     def stream_g_Au(self) -> Timeseries:
@@ -119,7 +119,7 @@ class Loan(Asset):
 
 @dataclass(frozen=True, kw_only=True)
 class Job(Asset):
-    """A job is an asset producing money but is not vandable.
+    """A job is an asset producing money but is not vendable.
     For the purpose of this program we only consider what are
     the savings produced by a job"""
 

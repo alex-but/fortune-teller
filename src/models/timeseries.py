@@ -15,7 +15,7 @@ def months_in_interval(start: date, end: date) -> int:
 
 
 class DateOrderException(Exception):
-    """End date is before the begnning date"""
+    """End date is before the beginning date"""
 
     def __init__(self, start_date: date, end_date: date, message: str):
         self.start_date = start_date
@@ -24,7 +24,7 @@ class DateOrderException(Exception):
         super().__init__(message)
 
 
-class DataToPeriodMissmatch(Exception):
+class DataToPeriodMismatch(Exception):
     """Show that data does not have the number of samples expected by a timeseries"""
 
     def __init__(
@@ -59,11 +59,11 @@ class Timeseries:
             )
 
         if months_in_interval(self.start_date, self.end_date) != len(self.data):
-            raise DataToPeriodMissmatch(
+            raise DataToPeriodMismatch(
                 start_date=self.start_date,
                 end_date=self.end_date,
                 no_samples=len(self.data),
-                message=f"""Timeseries init error: The length of the data {len(self.data)} does not mactch the number of samples from the period: {months_in_interval(self.start_date, self.end_date)}""",
+                message=f"""Timeseries init error: The length of the data {len(self.data)} does not match the number of samples from the period: {months_in_interval(self.start_date, self.end_date)}""",
             )
 
 
