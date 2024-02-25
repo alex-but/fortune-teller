@@ -8,7 +8,9 @@ from typing import Optional
 
 from .timeseries import (
     Timeseries,
+    constant_increase_timeseries,
     constant_timeseries,
+    months_in_interval,
 )
 from .world import City, Commodity, Country, Currency
 
@@ -73,11 +75,17 @@ class RealEstateProperty(Asset):
     @property
     def stream_g_Au(self) -> Timeseries:
         """TODO: computed value of the stream based on the country indicators"""
-        return constant_timeseries(0, self.purchase_date, self.sale_date)
+        stream_g_Au = self.value_g_Au * self.city.yearly_rent_to_price_index
+        return stream_g_Au
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(0, self.purchase_date, self.sale_date)
+        value_local_currency = (
+            constant_timeseries(self.surface_sqm, self.purchase_date, self.sale_date)
+            * self.city.sqm_housing_price
+        )
+        value_g_Au = value_local_currency / self.country.currency.units_per_g_Au
+        return value_g_Au
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -92,7 +100,10 @@ class CommodityBundle(Asset):
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(0, self.purchase_date, self.sale_date)
+        return (
+            constant_timeseries(self.initial_value, self.purchase_date, self.sale_date)
+            / self.commodity.units_per_g_Au
+        )
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -105,7 +116,10 @@ class Saving(Asset):
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(0, self.purchase_date, self.sale_date)
+        return (
+            constant_timeseries(self.initial_value, self.purchase_date, self.sale_date)
+            / self.currency.units_per_g_Au
+        )
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -116,11 +130,27 @@ class Loan(Asset):
 
     @property
     def stream_g_Au(self) -> Timeseries:
-        return constant_timeseries(0, self.purchase_date, self.sale_date)
+        monthly_repay_value = (
+            self.initial_value / self.currency.units_per_g_Au
+        ) / months_in_interval(self.purchase_date, self.end_date)
+        monthly_repay_value = constant_timeseries(
+            monthly_repay_value, self.purchase_date, self.end_date
+        )
+        monthly_interest_value = self.value_g_Au * self.currency.interest_rate
+        stream_g_Au = monthly_interest_value + monthly_repay_value
+        # final_payment
+        stream_g_Au.data[-1] = self.value_g_Au.data[-1]
+        return stream_g_Au
 
     @property
     def value_g_Au(self) -> Timeseries:
-        return constant_timeseries(0, self.purchase_date, self.sale_date)
+        value_local_currency = constant_increase_timeseries(
+            self.initial_value,
+            1 / months_in_interval(self.purchase_date, self.end_date),
+            self.purchase_date,
+            self.sale_date,
+        )
+        return value_local_currency / self.currency.units_per_g_Au
 
 
 @dataclass(frozen=True, kw_only=True)
