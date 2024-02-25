@@ -54,6 +54,9 @@ class Stock(Asset):
 
     @property
     def value_g_Au(self) -> Timeseries:
+        stock_index_during_ownership = self.country.stock_index[self.purchase_date:self.sale_date]
+        stock_index_normalized = stock_index_during_ownership - constant_timeseries(stock_index_during_ownership[self.purchase_date], self.purchase_date, self.sale_date)
+
         return constant_timeseries(0, self.purchase_date, self.sale_date)
 
 

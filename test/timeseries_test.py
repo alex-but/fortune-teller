@@ -1,4 +1,5 @@
 from datetime import date
+from tarfile import data_filter
 import pandas as pd
 import pytest
 from src.models.timeseries import (
@@ -57,3 +58,44 @@ def test_constant_timeseries():
     assert ts.end_date == date(2022, 12, 31)
     assert len(ts.data) == 12
     assert all(value == 100 for value in ts.data)
+
+
+def test_timeseries_slicing(valid_monthly_timeseries):
+    sliced_ts = valid_monthly_timeseries[date(2024, 2, 1) : date(2024, 4, 1)]
+    assert sliced_ts.start_date == date(2024, 2, 1)
+    assert sliced_ts.end_date == date(2024, 4, 1)
+    assert len(sliced_ts.data) == 3
+
+
+def test_timeseries_add(valid_monthly_timeseries):
+    sliced_ts = valid_monthly_timeseries[date(2024, 2, 1) : date(2024, 4, 1)]
+    added_ts = valid_monthly_timeseries + sliced_ts
+    assert len(added_ts.data) == 12
+    assert added_ts.data[0] == valid_monthly_timeseries.data[0]
+    assert added_ts.data[2] == valid_monthly_timeseries.data[2] * 2
+
+
+def test_timeseries_sub(valid_monthly_timeseries):
+    sliced_ts = valid_monthly_timeseries[date(2024, 2, 1) : date(2024, 4, 1)]
+    added_ts = valid_monthly_timeseries - sliced_ts
+    assert len(added_ts.data) == 12
+    assert added_ts.data[0] == valid_monthly_timeseries.data[0]
+    assert added_ts.data[2] == 0
+
+
+def test_timeseries_mul(valid_monthly_timeseries):
+    sliced_ts = valid_monthly_timeseries[date(2024, 2, 1) : date(2024, 4, 1)]
+    mul_ts = valid_monthly_timeseries * sliced_ts
+    assert len(mul_ts.data) == 3
+    assert mul_ts.data[0] == valid_monthly_timeseries.data[1] ** 2
+    assert mul_ts.data[1] == valid_monthly_timeseries.data[2] ** 2
+    assert mul_ts.data[2] == valid_monthly_timeseries.data[3] ** 2
+
+
+def test_timeseries_div(valid_monthly_timeseries):
+    sliced_ts = valid_monthly_timeseries[date(2024, 2, 1) : date(2024, 4, 1)]
+    mul_ts = valid_monthly_timeseries / sliced_ts
+    assert len(mul_ts.data) == 3
+    assert mul_ts.data[0] == 1
+    assert mul_ts.data[1] == 1
+    assert mul_ts.data[2] == 1
