@@ -99,3 +99,8 @@ def test_timeseries_div(valid_monthly_timeseries):
     assert mul_ts.data[0] == 1
     assert mul_ts.data[1] == 1
     assert mul_ts.data[2] == 1
+
+
+def test_timeseries_index(valid_monthly_timeseries):
+    sample = valid_monthly_timeseries[date(2024, 3, 1)]
+    assert sample == valid_monthly_timeseries.data[2]

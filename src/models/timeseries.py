@@ -159,8 +159,14 @@ class Timeseries:
         )
         return self * inverse_other
 
-    def __getitem__(self, time_range: slice):
-        """Implement slicing by date functionality"""
+    def __getitem__(self, key: slice | date):
+        """Implement slicing and indexing"""
+
+        if isinstance(key, date):
+            data_index = months_in_interval(self.start_date, key) - 1
+            return self.data[data_index]
+
+        time_range = key
         slice_interval = get_slice_indexes_from_date_intervals(
             slice(self.start_date, self.end_date),
             slice(time_range.start, time_range.stop),
