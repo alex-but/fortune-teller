@@ -39,6 +39,7 @@ The guide for the model structure is documented in [src/models/README.md](src/mo
 Create a virtual environmnet and install dependencies using poetry:
 
 ```sh
+pip install poetry
 poetry install
 ```
 
@@ -47,5 +48,6 @@ poetry install
 Pytest tests are configured to run the tests with the command below. The code coverage is also provided. It should never go below 90%
 
 ```sh
-pytest --cov=src
+poetry shell
+poetry run pytest --cov=src
 ```
