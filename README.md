@@ -30,7 +30,7 @@ FortuneTeller offers users a clear understanding of the potential long-term fina
 
 Users are encouraged to create mock worlds within FortuneTeller, where they include time series of indicators for specific geographical regions. This allows for a more accurate simulation and evaluation of investment scenarios.
 
-The guide for the model structure is documented in [src/models/README.md](src/models/README.md)
+The guide for the model structure is documented in [src/models/README.md](src/models/README.md).
 
 # Developer Guide
 
@@ -45,7 +45,7 @@ poetry install
 
 ## Running the unit tests
 
-Pytest tests are configured to run the tests with the command below. The code coverage is also provided. It should never go below 90%
+Pytest tests are configured to run the tests with the command below. The code coverage is also provided. It should never go below 90%.
 
 ```sh
 poetry shell
