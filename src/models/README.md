@@ -33,7 +33,7 @@ This repository contains data models for a financial simulation, including defin
 - Inherits from Asset.
 - Attributes:
   - `city`: City object representing the city associated with the real estate property.
-  - `surface_sqm`: size of the real estate
+  - `surface_sqm`: size of the real estate.
 
 ### CommodityBundle
 
@@ -56,9 +56,9 @@ This repository contains data models for a financial simulation, including defin
 
 ### Job
 
-- Represents a job of a character
+- Represents a job of a character.
 - Attributes:
-  - `monthly_saving`: how much of the job income can be saved
+  - `monthly_saving`: how much of the job income can be saved.
 
 ## World Elements
 
@@ -119,9 +119,9 @@ This repository contains data models for a financial simulation, including defin
 - Attributes:
   - `name`: Name of the character.
   - `assets`: List of Asset objects owned by the character.
-  - `initial_capital_g_Au`: initial capital to start with
+  - `initial_capital_g_Au`: initial capital to start with.
   - `capital_g_Au`: Timeseries representing the capital (wealth) of the character over time in grams of gold.
-  - `wealth`: computed total wealth over time in a given currency
+  - `wealth`: computed total wealth over time in a given currency.
 
 ## Usage
 
