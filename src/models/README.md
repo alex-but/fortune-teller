@@ -15,7 +15,7 @@ This repository contains data models for a financial simulation, including defin
 
 - Abstract base class representing a generic asset owned by a character.
 - Attributes:
-  - `initial_value`: Initial value of the asset.
+  - `initial_value`: Initial total value of the asset.
   - `purchase_date`: Date when the asset was purchased.
   - `currency`: Currency object representing the currency of the asset.
   - `sale_date`: Optional date when the asset was sold.
@@ -123,6 +123,29 @@ This repository contains data models for a financial simulation, including defin
   - `capital_g_Au`: Timeseries representing the capital (wealth) of the character over time in grams of gold.
   - `wealth`: computed total wealth over time in a given currency.
 
+## Formulas
+
+### Stocks
+- The cash flow from stocks over time is constant and equal to zero. We consider that are no dividends; the stock value increases in value over time. The stream of cash over time in grams of gold (sg_Au) is:
+
+$$s_{g/Au} = 0$$
+
+- The value of the shares of a company's stock owned by a character changes over time depending on the stock price (st-pr). For instance, the value paid by one unit of stock on the purchase date (t=0) is:
+
+$$S_{t=0} = st-pr_{t=0}$$
+
+To calculate the value of the shares in grams of gold (Sg/Au) over time, we need to calculate the total units bought on the purchase date (units), and the value of these shares in the local currency (S).
+
+The total of units bought on a specifc date is constant on time. If the character buy more shares from the same company's stocks, a new asset must be created.
+
+$$units_{t=0} = total-amont-paid_{t=0}/st-pr_{t=0}$$
+
+$$S_{t=t} = units_{t=0}*st-pr_{t=t}$$
+
+$$S_{g/Au;t=t} = S_{t=t}/Au-pr_{g;t=t}$$
+
+
 ## Usage
 
 To use the data models, simply import the required classes from the provided modules and create instances of the classes with the desired attributes. You can then use these instances to simulate financial scenarios, analyze the results, and visualize the data over time.
+

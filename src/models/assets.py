@@ -56,11 +56,11 @@ class Stock(Asset):
 
     @property
     def value_g_Au(self) -> Timeseries:
-        initial_stock_value = self.country.stock_index[self.purchase_date]
+        initial_stock_unit_value = self.country.stock_price[self.purchase_date]
         bought_units_ts = constant_timeseries(
-            self.initial_value / initial_stock_value, self.purchase_date, self.sale_date
+            self.initial_value / initial_stock_unit_value, self.purchase_date, self.sale_date
         )
-        value_local_currency = bought_units_ts * self.country.stock_index
+        value_local_currency = bought_units_ts * self.country.stock_price
         value_g_Au = value_local_currency / self.country.currency.units_per_g_Au
         return value_g_Au
 
