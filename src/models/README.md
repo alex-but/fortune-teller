@@ -130,7 +130,7 @@ This repository contains data models for a financial simulation, including defin
 
 $$S_{t\in[0,t]} = [0,0,0,...]$$
 
-- The value of the shares of a company's stock owned by a character in grams of gold ($V_{t\in[0,t]}$) over time in a specific currency is:
+- The value of the shares of a company's stock owned by a character over time in grams of gold ($V_{t\in[0,t]}$)in a specific currency is:
 
 $$V_{t\in[0,t]} = ((p_{t=0}/c_{t=0})*C_{t\in[0,t]})/A_{t\in[0,t]}$$
 
@@ -146,9 +146,9 @@ $A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
 $$S_{t\in[0,t]} = (V_{t\in[0,t]}/I_{t\in[0,t]})/12$$
 
 $V_{t\in[0,t]}$ = value of the property over time measured in gold price\
-$I_{t\in[0,t]}$ = yearly price to rent index
+$I_{t\in[0,t]}$ = yearly price to rent index.
 
-- The value of a property owned by a character in grams of gold ($V_{t\in[0,t]}$) over time in a specific currency is:
+- The value of a property owned by a character over time in grams of gold ($V_{t\in[0,t]}$) in a specific currency is:
 
 $$V_{t\in[0,t]} = (P_{t\in[0,t]}*s)/A_{t\in[0,t]}$$
 
@@ -156,6 +156,27 @@ $P_{t\in[0,t]}$ = property price per sqm\
 $s$ = property surface in sqm\
 $A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
 
+
+### Loan
+- The negative stream of cash (or the monthly repayment value) over time in grams of gold ($V_{t\in[0,t]}$) in a specific currency is:
+
+$$S_{t\in[0,t]} = (L_{t\in[0,t]}*I_{t\in[0,t]})+((l/m)/A_{t\in[0,t]})$$
+
+$L_{t\in[0,t]}$ = value of the loan over time in grams of gold\
+$I_{t\in[0,t]}$ = monthly interest rate\
+$l$ = initial loan amount\
+$m$ = number of months to repay the loan\
+$A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
+
+- The remaining loan value owned by a character over time in grams of gold ($V_{t\in[0,t]}$) in a specific currency is:
+
+$$V_{t\in[0,t]} = (l*((1+I_{t\in[0,t]})^n-(1+I_{t\in[0,t]})^k/(1+I_{t\in[0,t]})^n-1))/A_{t\in[0,t]}$$
+
+$l$ = initial loan amount\
+$I_{t\in[0,t]}$ = monthly interest rate\
+$n$ = total number of payments\
+$k$ = number of payments made\
+$A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
 
 
 ## Usage
