@@ -126,18 +126,18 @@ This repository contains data models for a financial simulation, including defin
 ## Formulas
 
 ### Stocks
-- The cash flow from stocks over time is constant and equal to zero (there are no dividends; the stock value increases in value over time). The stream of cash over time in grams of gold ($s_{t\in[0,t]}$) is:
+- The cash flow from stocks over time is constant and equal to zero (there are no dividends; the stock value increases in value over time). The stream of cash over time in grams of gold ($S_{t\in[0,t]}$) is:
 
-$$s_{t\in[0,t]} = [0,0,0,...]$$
+$$S_{t\in[0,t]} = [0,0,0,...]$$
 
-- The value of the shares of a company's stock owned by a character in grams of gold ($S_{t\in[0,t]}$) over time in a specific currency is:
+- The value of the shares of a company's stock owned by a character in grams of gold ($V_{t\in[0,t]}$) over time in a specific currency is:
 
-$$S_{t\in[0,t]} = ((P_{t=0}/p_{t=0})*p_{t\in[0,t]})/Au_{t\in[0,t]}$$
+$$V_{t\in[0,t]} = ((p_{t=0}/c_{t=0})*C_{t\in[0,t]})/A_{t\in[0,t]}$$
 
-$P_{t=0}$ = total purchase price on the purchase date\
-$p_{t=0}$ = cost of a single unit of the stock on the purchase date\
-$p_{t\in[0,t]}$ = cost of a single unit of the stock over time\
-$Au_{t\in[0,t]}$ = cost of 1 gram of gold over time
+$p_{t=0}$ = total purchase price on the purchase date\
+$c_{t=0}$ = cost of a single unit of the stock on the purchase date\
+$C_{t\in[0,t]}$ = cost of a single unit of the stock over time\
+$A_{t\in[0,t]}$ = cost of 1 gram of gold over time
 
 ## Usage
 
