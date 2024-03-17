@@ -143,7 +143,7 @@ $A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
 ### Real State
 - The stream of cash over time in grams of gold ($S_{t\in[0,t]}$) is:
 
-$$S_{t\in[0,t]} = V_{t\in[0,t]} * I_{t\in[0,t]}$$
+$$S_{t\in[0,t]} = (V_{t\in[0,t]}/I_{t\in[0,t]})/12$$
 
 $V_{t\in[0,t]}$ = value of the property over time measured in gold price\
 $I_{t\in[0,t]}$ = yearly price to rent index
