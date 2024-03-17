@@ -31,7 +31,7 @@ class Country:
     name: str
     currency: Currency
     real_estate_acquisition_cost_percentage: int
-    stock_index: Timeseries
+    stock_price: Timeseries
 
 
 @dataclass(frozen=True, kw_only=True)

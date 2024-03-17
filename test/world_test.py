@@ -21,7 +21,7 @@ def sample_data():
         name="USA",
         currency=currency,
         real_estate_acquisition_cost_percentage=5,
-        stock_index=ts,
+        stock_price=ts,
     )
 
     # Sample city data

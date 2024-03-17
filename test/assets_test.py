@@ -36,7 +36,7 @@ def sample_data():
         name="USA",
         currency=currency,
         real_estate_acquisition_cost_percentage=5,
-        stock_index=ts,
+        stock_price=ts,
     )
 
     # Sample city data
@@ -175,7 +175,7 @@ def test_stock_value():
         name="DE",
         currency=euro,
         real_estate_acquisition_cost_percentage=9,
-        stock_index=constant_increase_timeseries(
+        stock_price=constant_increase_timeseries(
             first_value=3, monthly_increase_rate=0.012, start=start, end=end
         ),
     )

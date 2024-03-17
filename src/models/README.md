@@ -15,7 +15,7 @@ This repository contains data models for a financial simulation, including defin
 
 - Abstract base class representing a generic asset owned by a character.
 - Attributes:
-  - `initial_value`: Initial value of the asset.
+  - `initial_value`: Initial total value of the asset.
   - `purchase_date`: Date when the asset was purchased.
   - `currency`: Currency object representing the currency of the asset.
   - `sale_date`: Optional date when the asset was sold.
@@ -123,6 +123,25 @@ This repository contains data models for a financial simulation, including defin
   - `capital_g_Au`: Timeseries representing the capital (wealth) of the character over time in grams of gold.
   - `wealth`: computed total wealth over time in a given currency.
 
+## Formulas
+
+### Stocks
+- The cash flow from stocks over time is constant and equal to zero (there are no dividends; the stock value increases in value over time). The stream of cash over time in grams of gold ($S_{t\in[0,t]}$) is:
+
+$$S_{t\in[0,t]} = [0,0,0,...]$$
+
+- The value of the shares of a company's stock owned by a character in grams of gold ($V_{t\in[0,t]}$) over time in a specific currency is:
+
+$$V_{t\in[0,t]} = ((p_{t=0}/c_{t=0})*C_{t\in[0,t]})/A_{t\in[0,t]}$$
+
+$p_{t=0}$ = total purchase price on the purchase date\
+$c_{t=0}$ = cost of a single unit of the stock on the purchase date\
+$C_{t\in[0,t]}$ = cost of a single unit of the stock over time\
+$A_{t\in[0,t]}$ = cost of 1 gram of gold over time
+
 ## Usage
 
 To use the data models, simply import the required classes from the provided modules and create instances of the classes with the desired attributes. You can then use these instances to simulate financial scenarios, analyze the results, and visualize the data over time.
+
+
+
