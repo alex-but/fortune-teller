@@ -29,7 +29,7 @@ def sample_data():
         name="New York",
         country=country,
         sqm_housing_price=ts,
-        yearly_rent_to_price_index=ts,
+        yearly_price_to_rent_index=ts,
     )
 
     # Sample commodity data

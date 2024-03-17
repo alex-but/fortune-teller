@@ -39,7 +39,7 @@ class City:
     name: str
     country: Country
     sqm_housing_price: Timeseries
-    yearly_rent_to_price_index: Timeseries
+    yearly_price_to_rent_index: Timeseries
 
 
 @dataclass(frozen=True, kw_only=True)
