@@ -86,7 +86,7 @@ This repository contains data models for a financial simulation, including defin
   - `name`: Name of the city.
   - `country`: Country object representing the country in which the city is located.
   - `sqm_housing_price`: Timeseries representing the price per square meter of housing in the city.
-  - `yearly_rent_to_price_index`: Timeseries representing the yearly rent to price index ratio in the city.
+  - `yearly_price_to_rent_index`: Timeseries representing the yearly price to rent index ratio in the city.
 
 ### Commodity
 
@@ -137,7 +137,26 @@ $$V_{t\in[0,t]} = ((p_{t=0}/c_{t=0})*C_{t\in[0,t]})/A_{t\in[0,t]}$$
 $p_{t=0}$ = total purchase price on the purchase date\
 $c_{t=0}$ = cost of a single unit of the stock on the purchase date\
 $C_{t\in[0,t]}$ = cost of a single unit of the stock over time\
-$A_{t\in[0,t]}$ = cost of 1 gram of gold over time
+$A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
+
+
+### Real State
+- The stream of cash over time in grams of gold ($S_{t\in[0,t]}$) is:
+
+$$S_{t\in[0,t]} = V_{t\in[0,t]} * I_{t\in[0,t]}$$
+
+$V_{t\in[0,t]}$ = value of the property over time measured in gold price\
+$I_{t\in[0,t]}$ = yearly price to rent index
+
+- The value of a property owned by a character in grams of gold ($V_{t\in[0,t]}$) over time in a specific currency is:
+
+$$V_{t\in[0,t]} = (P_{t\in[0,t]}*s)/A_{t\in[0,t]}$$
+
+$P_{t\in[0,t]}$ = property price per sqm\
+$s$ = property surface in sqm\
+$A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
+
+
 
 ## Usage
 

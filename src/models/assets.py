@@ -75,7 +75,7 @@ class RealEstateProperty(Asset):
     @property
     def stream_g_Au(self) -> Timeseries:
         """TODO: computed value of the stream based on the country indicators"""
-        stream_g_Au = self.value_g_Au * self.city.yearly_rent_to_price_index
+        stream_g_Au = self.value_g_Au * self.city.yearly_price_to_rent_index
         return stream_g_Au
 
     @property
