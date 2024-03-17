@@ -126,26 +126,22 @@ This repository contains data models for a financial simulation, including defin
 ## Formulas
 
 ### Stocks
-- The cash flow from stocks over time is constant and equal to zero. We consider that are no dividends; the stock value increases in value over time. The stream of cash over time in grams of gold (sg_Au) is:
+- The cash flow from stocks over time is constant and equal to zero (there are no dividends; the stock value increases in value over time). The stream of cash over time in grams of gold ($s_{t\in[0,t]}$) is:
 
-$$s_{g/Au} = 0$$
+$$s_{t\in[0,t]} = [0,0,0,...]$$
 
-- The value of the shares of a company's stock owned by a character changes over time depending on the stock price (st-pr). For instance, the value paid by one unit of stock on the purchase date (t=0) is:
+- The value of the shares of a company's stock owned by a character in grams of gold ($S_{t\in[0,t]}$) over time in a specific currency is:
 
-$$S_{t=0} = st-pr_{t=0}$$
+$$S_{t\in[0,t]} = ((P_{t=0}/p_{t=0})*p_{t\in[0,t]})/Au_{t\in[0,t]}$$
 
-To calculate the value of the shares in grams of gold (Sg/Au) over time, we need to calculate the total units bought on the purchase date (units), and the value of these shares in the local currency (S).
-
-The total of units bought on a specifc date is constant on time. If the character buy more shares from the same company's stocks, a new asset must be created.
-
-$$units_{t=0} = total-amont-paid_{t=0}/st-pr_{t=0}$$
-
-$$S_{t=t} = units_{t=0}*st-pr_{t=t}$$
-
-$$S_{g/Au;t=t} = S_{t=t}/Au-pr_{g;t=t}$$
-
+$P_{t=0}$ = total purchase price on the purchase date\
+$p_{t=0}$ = cost of a single unit of the stock on the purchase date\
+$p_{t\in[0,t]}$ = cost of a single unit of the stock over time\
+$Au_{t\in[0,t]}$ = cost of 1 gram of gold over time
 
 ## Usage
 
 To use the data models, simply import the required classes from the provided modules and create instances of the classes with the desired attributes. You can then use these instances to simulate financial scenarios, analyze the results, and visualize the data over time.
+
+
 
