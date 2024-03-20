@@ -61,7 +61,7 @@ class Stock(Asset):
             self.initial_value / initial_stock_unit_value, self.purchase_date, self.sale_date
         )
         value_local_currency = bought_units_ts * self.country.stock_price
-        value_g_Au = value_local_currency / self.country.currency.units_per_g_Au
+        value_g_Au = value_local_currency / self.currency.units_per_g_Au
         return value_g_Au
 
 
@@ -84,7 +84,7 @@ class RealEstateProperty(Asset):
             constant_timeseries(self.surface_sqm, self.purchase_date, self.sale_date)
             * self.city.sqm_housing_price
         )
-        value_g_Au = value_local_currency / self.country.currency.units_per_g_Au
+        value_g_Au = value_local_currency / self.currency.units_per_g_Au
         return value_g_Au
 
 
@@ -130,14 +130,12 @@ class Loan(Asset):
 
     @property
     def stream_g_Au(self) -> Timeseries:
-        monthly_repay_value = (
-            self.initial_value / self.currency.units_per_g_Au
-        ) / months_in_interval(self.purchase_date, self.end_date)
-        monthly_repay_value = constant_timeseries(
+        monthly_repay_value = self.initial_value / months_in_interval(self.purchase_date, self.end_date)
+        monthly_repay_value_time_series = constant_timeseries(
             monthly_repay_value, self.purchase_date, self.end_date
-        )
+        )/self.currency.units_per_g_Au
         monthly_interest_value = self.value_g_Au * self.currency.interest_rate
-        stream_g_Au = monthly_interest_value + monthly_repay_value
+        stream_g_Au = monthly_interest_value + monthly_repay_value_time_series
         # final_payment
         stream_g_Au.data[-1] = self.value_g_Au.data[-1]
         return stream_g_Au
