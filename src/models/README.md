@@ -158,25 +158,24 @@ $A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
 
 
 ### Loan
-- The negative stream of cash (or the monthly repayment value) over time in grams of gold ($V_{t\in[0,t]}$) in a specific currency is:
+- The negative stream of cash (or the monthly repayment value) over time in grams of gold ($S_{t\in[0,t]}$) in a specific currency is:
 
-$$S_{t\in[0,t]} = (L_{t\in[0,t]}*I_{t\in[0,t]})+((l/m)/A_{t\in[0,t]})$$
+$$S_{t\in[0,t]} = (L_{t\in[0,t]}*I_{t\in[0,t]})+((l/t)/A_{t\in[0,t]})$$
 
 $L_{t\in[0,t]}$ = value of the loan over time in grams of gold\
 $I_{t\in[0,t]}$ = monthly interest rate\
 $l$ = initial loan amount\
-$m$ = number of months to repay the loan\
+$t$ = number of months to repay the loan\
 $A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
 
-- The remaining loan value owned by a character over time in grams of gold ($V_{t\in[0,t]}$) in a specific currency is:
+- The remaining loan value owned by a character over time in grams of gold ($v_{k\in[0,t]}$) in a specific currency is:
 
-$$V_{t\in[0,t]} = (l*((1+I_{t\in[0,t]})^n-(1+I_{t\in[0,t]})^k/(1+I_{t\in[0,t]})^n-1))/A_{t\in[0,t]}$$
+$$v_{k\in[0,t]} = (l- \left| \frac{l}{t} \right|*k)/a_{k\in[0,t]}$$
 
 $l$ = initial loan amount\
-$I_{t\in[0,t]}$ = monthly interest rate\
-$n$ = total number of payments\
+$t$ = number of months to repay the loan\
 $k$ = number of payments made\
-$A_{t\in[0,t]}$ = cost of 1 gram of gold over time.
+$a_{k\in[0,t]}$ = cost of 1 gram of gold in month k.
 
 
 ## Usage
