@@ -201,7 +201,7 @@ def linear_timeseries(
 ) -> Timeseries:
     """computes a linear timeseries
 
-    f(t) = a + b*t
+    f(t) = a*(1+*b*t)
 
     Args:
         a (float): initial value
@@ -214,7 +214,7 @@ def linear_timeseries(
     """
     data = []
     for t in range(0, months_in_interval(start, end)):
-        data[t] = a + b*t
+        data.append(a*(1+b*t))
 
     return Timeseries(
         start_date=start,
