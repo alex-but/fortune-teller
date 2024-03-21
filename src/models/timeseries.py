@@ -196,23 +196,25 @@ def constant_timeseries(value: float, start: date, end: date) -> Timeseries:
     )
 
 
-def constant_increase_timeseries(
-    first_value: float, monthly_increase_rate: float, start: date, end: date
+def linear_timeseries(
+    a: float, b: float, start: date, end: date
 ) -> Timeseries:
-    """computes a constantly increasing timeseries
+    """computes a linear timeseries
+
+    f(t) = a + b*t
 
     Args:
-        value (float): value to start with
-        monthly_increase_rate (float): percentage of monthly increase (can be negative)
+        a (float): initial value
+        b (float): slope of the function
         start (date):
         end (date):
 
     Returns:
         Timeseries: resulting timeseries
     """
-    data = [first_value] * months_in_interval(start, end)
-    for index in range(1, len(data)):
-        data[index] = data[index - 1] * (1 + monthly_increase_rate)
+    data = []
+    for t in range(0, months_in_interval(start, end)):
+        data[t] = a + b*t
 
     return Timeseries(
         start_date=start,

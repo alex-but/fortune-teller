@@ -8,7 +8,7 @@ from typing import Optional
 
 from .timeseries import (
     Timeseries,
-    constant_increase_timeseries,
+    linear_timeseries,
     constant_timeseries,
     months_in_interval,
 )
@@ -142,7 +142,7 @@ class Loan(Asset):
 
     @property
     def value_g_Au(self) -> Timeseries:
-        value_local_currency = constant_increase_timeseries(
+        value_local_currency = linear_timeseries(
             self.initial_value,
             1 / months_in_interval(self.purchase_date, self.end_date),
             self.purchase_date,
