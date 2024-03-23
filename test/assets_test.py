@@ -12,7 +12,7 @@ from src.models.assets import (
 )
 from src.models.timeseries import (
     Timeseries,
-    constant_increase_timeseries,
+    linear_timeseries,
     constant_timeseries,
     months_in_interval,
 )
@@ -175,8 +175,8 @@ def test_stock_value():
         name="DE",
         currency=euro,
         real_estate_acquisition_cost_percentage=9,
-        stock_price=constant_increase_timeseries(
-            first_value=3, monthly_increase_rate=0.012, start=start, end=end
+        stock_price=linear_timeseries(
+            a=3, b=0.012, start=start, end=end
         ),
     )
 
