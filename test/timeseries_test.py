@@ -4,6 +4,8 @@ import pandas as pd
 import pytest
 from src.models.timeseries import (
     DateOrderException,
+    linear_timeseries,
+    months_in_interval,
     Timeseries,
     DataToPeriodMismatch,
     constant_timeseries,
@@ -104,3 +106,15 @@ def test_timeseries_div(valid_monthly_timeseries):
 def test_timeseries_index(valid_monthly_timeseries):
     sample = valid_monthly_timeseries[date(2024, 3, 1)]
     assert sample == valid_monthly_timeseries.data[2]
+
+
+def test_linear_timeseries():
+    start_date = date(2024, 1, 1)
+    end_date = date(2024, 12, 31)
+    result = linear_timeseries(a=2, b=0, start=start_date, end=end_date)
+    assert result.data == [2]*12
+    result = linear_timeseries(a=2, b=1, start=start_date, end=end_date)
+    assert result.data[0] == 2
+    assert result.data[5] == 12
+    assert result.data[11] == 24
+
